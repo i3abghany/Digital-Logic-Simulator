@@ -15,10 +15,9 @@
 
 * The ```OUT``` command, if followed by a name of a node, it will print to the console only the value of this node, e.g. ```OUT A``` will print the value of the node A to the console, ```OUT C``` will print the value of the node C, which is the output node of the ANDgate we initialized.
 
-* if the ```OUT``` command ins followed by the command ```ALL```, which means typing ```OUT ALL``` in the ```.cir``` file, the program will print all the nodes in the simulator.
+* if the ```OUT``` command is followed by the command ```ALL```, which means typing ```OUT ALL``` in the ```.cir``` file, the program will print all the nodes in the simulator.
 
-* An example input for the simulator in the ```.cir``` file would go like this:
-
+* An example input for the simulator to evaluate the output in the case of specified inputs in the ```.cir``` file would look like this:
 ```
 AND  A B C
 OR   C E D
@@ -37,6 +36,20 @@ C 0
 E 1
 D 0
 F 1
+```
+
+## Truth Table:
+* if the ```TSET``` command is followed by a name of a node, It's going to be assigned as an input node for the circuit and it will be considered in the truth table as an input node.
+
+* the ```TRUTH``` command is used to print out the truth table of the circuit using the input nodes assigned by the ``TSET``` command.
+
+* An example input for the simulator to evaluate the truth table for the specified input nodes would look like:
+```
+XOR A B S
+AND A B C
+TSET A
+TSET B
+TRUTH
 ```
 
 * Firstly, initialize a ```Simulator``` object using the default constructor. And call the ```load()``` method passing the ```.cir``` file name as a string parameter.
