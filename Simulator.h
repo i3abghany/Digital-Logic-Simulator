@@ -10,6 +10,7 @@ class Simulator {
 protected:
     vector<Node*> NA;
     vector<Gate*> GA;
+    vector<Node*> inputNodes;
     
 public:
     Simulator();
@@ -21,13 +22,16 @@ public:
     Node* findNode(string);
     Node* addNode(string);
     Node* findOrAdd(string);
-
+    Node* addInputNode(string);
     Gate* addGate(string);
 
     void simulate();
     void load(string);
 
+    void TruthTable();
+    void printAllNodesForTruthTable();
     void printAllNodes();
+    Node* findInInputNodes(string);
 };
 
 
