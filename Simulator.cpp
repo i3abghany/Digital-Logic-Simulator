@@ -3,11 +3,18 @@
 #include "Simulator.h"
 
 #include <fstream>
+#include <iostream>
+#include <cmath>
+#include <bitset>
+#include <algorithm>
+#include <iomanip>
 
 #include "AndGate.h"
 #include "OrGate.h"
 #include "XORGate.h"
 #include "NANDGate.h"
+#include "XNORGate.h"
+#include "NORGate.h"
 
 using namespace std;
 
@@ -15,6 +22,7 @@ using namespace std;
 Simulator::Simulator() {
     NA = vector<Node*>();
     GA = vector<Gate*>();
+    inputNodes = vector<Node*>();
 }
 
 // Returning the number of gates.
@@ -77,6 +85,10 @@ Gate* Simulator::addGate(string type) {
         x = new XORGate();
     else if(type == "NAND")
         x = new NANDGate();
+    else if(type == "XNOR")
+        x = new XNORGate();
+    else if(type == "NOR")
+        x = new NORGate();
     GA.emplace_back(x);
     return GA[GA.size() - 1];
 }
@@ -112,7 +124,13 @@ void Simulator::load(string fileName) {
             string n; short v;
             f1 >> n >> v;
             findOrAdd(n)->setValue(v);
-        } else if(s == "OUT") {
+        } else if(s == "TSET") {
+            string n;
+            f1 >> n;
+            findOrAdd(n)->setValue(0);
+            addInputNode(n);
+        }
+        else if(s == "OUT") {
             string k;
             f1 >> k;
             if(k == "ALL")
@@ -120,6 +138,7 @@ void Simulator::load(string fileName) {
             else findOrAdd(k)->printNode();
         }
         else if(s == "SIM") simulate();
+        else if(s == "TRUTH") TruthTable();
         else {
             Gate* g = addGate(s);
             string n1, n2, n3;
@@ -131,6 +150,59 @@ void Simulator::load(string fileName) {
         }
     }
     f1.close();
+}
+
+Node* Simulator::addInputNode(string s) {
+    inputNodes.emplace_back(new Node(s));
+    return inputNodes[inputNodes.size() - 1];
+}
+
+void Simulator::printAllNodesForTruthTable() {
+    std::cout << std::endl;
+
+    for(int i = 0; i < inputNodes.size(); i++)
+    std::cout << std::setw(5) << findOrAdd(inputNodes[i]->getName())->getValue();
+
+    for(int i = 0; i < NA.size(); i++)
+        if(findInInputNodes(NA[i]->getName()) == nullptr)
+            std::cout << std::setw(5) << NA[i]->getValue();
+}
+
+Node* Simulator::findInInputNodes(string s) {
+    for(int i = 0; i < inputNodes.size(); i++)
+        if(inputNodes[i]->getName() == s)
+            return inputNodes[i];
+    return nullptr;
+}
+
+void Simulator::TruthTable() {
+    // The header of the truth table, inputs and outputs.
+    unsigned long long NumberOfInputNodes = inputNodes.size();
+    int NumberOfPossibilities = (int)pow(2, NumberOfInputNodes);
+    for(int i = 0; i < inputNodes.size(); i++)
+        std::cout << std::setw(5) << inputNodes[i]->getName();
+    for(int i = 0; i < NA.size(); i++) {
+        if(findInInputNodes(NA[i]->getName()) == nullptr)
+            std::cout << std::setw(5) << NA[i]->getName();
+    }
+
+    // using bitset to generate the different combinations of binary
+    // number representation.
+    
+    const size_t sz = 8;
+    for(int i = 0; i < NumberOfPossibilities; i++) {
+        string currentPossibility = std::bitset<sz>(i).to_string();
+        
+        // deleting the leading zeros.
+        currentPossibility = currentPossibility.substr(currentPossibility.size() - NumberOfInputNodes);
+        
+        for(int j = 0; j < NumberOfInputNodes; j++) {
+            findOrAdd(inputNodes[j]->getName())->setValue(currentPossibility[j] - '0');
+        }
+        
+        simulate();
+        printAllNodesForTruthTable();
+    }
 }
 
  // The destructor of the simulator class, deleting all the node pointers and gate pointers to release the memory reserved
