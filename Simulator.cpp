@@ -25,22 +25,15 @@ Simulator::Simulator() {
     inputNodes = vector<Node*>();
 }
 
-// Returning the number of gates.
 int Simulator::getGS() {
     return GA.size();
 }
 
-// Returning the number of nodes.
 int Simulator::getNS() {
     return NA.size();
 }
 
-
-/*
- * @param s name of the node to check if present in the vector or not.
- *
- * if the node called s is present in the vector, return a pointer to the node, else return null which indicates NO.
- */
+// searches for a node with the name s.
 Node* Simulator::findNode(string s) {
     for (int i = 0; i < NA.size(); ++i) {
         if(NA[i]->getName() == s)
@@ -49,20 +42,13 @@ Node* Simulator::findNode(string s) {
     return NULL;
 }
 
-/*
- * @param s the name of a new node to add to the vector of nodes with the default constructor.
- */
-
+// Adds a node to the nodes array.
 Node* Simulator::addNode(string s) {
     NA.emplace_back(new Node(s));
     return NA[NA.size()-1];
 }
 
-/*
- * @param s the name of the node to be added to the vector if not present, if it's already
- * in the vector, return a pointer to the node that exists.
- */
-
+// Search for a node with name s, if not existed, make a new node called s.
 Node* Simulator::findOrAdd(string s) {
     Node* n = findNode(s);
     if(n != NULL)
@@ -70,11 +56,7 @@ Node* Simulator::findOrAdd(string s) {
     return addNode(s);
 }
 
-/*
- * @param type the type of the gate which could be AND, OR, XOR or NAND.
- *
- */
-
+// Creates a gate of the according type.
 Gate* Simulator::addGate(string type) {
     Gate* x = NULL;
     if(type == "AND")
@@ -106,14 +88,12 @@ void Simulator::printAllNodes() {
         NA[i]->printNode();
 }
 
-/*
- * @param fileName the actual place and name of the file that the simulator should read from.
+/* Used to load the file that contains the components of the digital system.
  * The command SET is used to define the value of a specific node called s.
  * The command SIM is used to calculate all the outputs of the gates in the entire simulator, using the function simulate()
- * The command OUT, if followed by a node name, it will output the value of the node.
- * The command Out, if followed by "ALL", without the quotes, will print all the nodes and their values.
- */
-
+ *The command TRUTH is used to generate and print the truth table of the system
+ * The command TSET is used to set a node as an input node in the truth table.
+*/
 void Simulator::load(string fileName) {
     ifstream f1;
     f1.open(fileName);
@@ -186,9 +166,7 @@ void Simulator::TruthTable() {
             std::cout << std::setw(5) << NA[i]->getName();
     }
 
-    // using bitset to generate the different combinations of binary
-    // number representation.
-    
+   // using a bitset to generate all the combinations of the truth table. 
     const size_t sz = 8;
     for(int i = 0; i < NumberOfPossibilities; i++) {
         string currentPossibility = std::bitset<sz>(i).to_string();
@@ -204,9 +182,6 @@ void Simulator::TruthTable() {
         printAllNodesForTruthTable();
     }
 }
-
- // The destructor of the simulator class, deleting all the node pointers and gate pointers to release the memory reserved
- // by the simulator.
 
 Simulator::~Simulator() {
     for (int i = 0; i < NA.size(); ++i)

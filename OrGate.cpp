@@ -1,11 +1,7 @@
 #include "OrGate.h"
 
-OrGate::OrGate() {
-
-}
-OrGate::~OrGate() {
-
-}
+OrGate::OrGate() = default;
+OrGate::~OrGate() = default;
 
 void OrGate::calculateOutput() {
     if(in1->getValue() && in2->getValue())

@@ -1,12 +1,8 @@
 #include "AndGate.h"
 
-AndGate::AndGate() {
+AndGate::AndGate() = default;
 
-}
-
-AndGate::~AndGate() {
-
-}
+AndGate::~AndGate() = default;
 
 void AndGate::calculateOutput() {
     if(in1->getValue() && in2->getValue())

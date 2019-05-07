@@ -1,11 +1,7 @@
 #include "XNORGate.h"
 
-XNORGate::XNORGate() {
-
-}
-XNORGate::~XNORGate() {
-
-}
+XNORGate::XNORGate() = default;
+XNORGate::~XNORGate() = default;
 
 void XNORGate::calculateOutput() {
     if((!in1->getValue() && !in2->getValue()) || (in1->getValue() && in2->getValue()))

@@ -13,3 +13,4 @@ public:
 
 
 #endif //LOGIC_SIMULATOR_XNORGATE_H
+

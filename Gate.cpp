@@ -1,9 +1,9 @@
 #include "Gate.h"
 
 Gate::Gate() {
-    in1 = NULL;
-    in2 = NULL;
-    out = NULL;
+    in1 = nullptr;
+    in2 = nullptr;
+    out = nullptr;
 }
 void Gate::setIn1(Node* n) {
     in1 = n;

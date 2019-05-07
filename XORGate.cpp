@@ -1,11 +1,7 @@
 #include "XORGate.h"
 
-XORGate::XORGate() {
-
-}
-XORGate::~XORGate() {
-
-}
+XORGate::XORGate() = default;
+XORGate::~XORGate() = default;
 
 
 void XORGate::calculateOutput() {
