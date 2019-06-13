@@ -8,10 +8,10 @@ using namespace std;
 
 class Simulator {
 protected:
-    vector<Node*> NA;
-    vector<Gate*> GA;
-    vector<Node*> inputNodes;
-    
+    std::vector<Node*> NA;
+    std::vector<Gate*> GA;
+    std::vector<Node*> inputNodes;
+
 public:
     Simulator();
     ~Simulator();
@@ -19,19 +19,19 @@ public:
     int getGS();
     int getNS();
 
-    Node* findNode(string);
-    Node* addNode(string);
-    Node* findOrAdd(string);
-    Node* addInputNode(string);
-    Gate* addGate(string);
+    Node* findNode(const std::string&);
+    Node* addNode(const std::string&);
+    Node* findOrAdd(const std::string&);
+    Node* addInputNode(const std::string&);
+    Gate* addGate(const std::string&);
 
     void simulate();
-    void load(string);
+    void load(const std::string&);
 
     void TruthTable();
     void printAllNodesForTruthTable();
     void printAllNodes();
-    Node* findInInputNodes(string);
+    Node* findInInputNodes(const std::string &);
 };
 
 
