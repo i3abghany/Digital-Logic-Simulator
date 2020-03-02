@@ -28,7 +28,7 @@ SET    E 1
 SIM
 OUT    ALL
 ```
-* Which shall print this result to the console.
+* Which shall print this result to the console:
 ```
 A 1
 B 0
@@ -39,7 +39,9 @@ F 1
 ```
 
 ## Truth Table:
-* if the ```TSET``` command is followed by a name of a node, It's going to be assigned as an input node for the circuit and it will be considered in the truth table as an input node.
+* if the ```TSETIN``` command is followed by a name of a node, It's going to be assigned as an input node for the circuit and it will be considered in the truth table as an input node.
+
+* if the ```TSETOUT``` command is followed by a name of a node, It's going to be assigned as an output node for the circuit and it will be considered in the truth table as an output node.
 
 * the ```TRUTH``` command is used to print out the truth table of the circuit using the input nodes assigned by the ``TSET``` command.
 
@@ -47,12 +49,11 @@ F 1
 ```
 XOR A B S
 AND A B C
-TSET A
-TSET B
+TSETIN A
+TSETIN B
+TSETOUT S
+TSETOUT C
 TRUTH
 ```
 
 * Firstly, initialize a ```Simulator``` object using the default constructor. And call the ```load()``` method passing the ```.cir``` file name as a string parameter.
-
-## Note: 
-The simulator is awesome and it assumes that its users are awesome and do no mistakes in the input file!
