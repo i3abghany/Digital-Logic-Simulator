@@ -4,7 +4,7 @@
 #define LOGIC_SIMULATOR_XNORGATE_H
 
 
-class XNORGate : public Gate{
+class XNORGate : public Gate {
 public:
     XNORGate();
     void calculateOutput();

@@ -3,10 +3,10 @@
 
 #include "Node.h"
 
-
 /*
  * An abstract class that has the main properties of the 2-input-1-output logic gates.
  */
+
 class Gate {
 protected:  // so as to be accessed from the child classes.
     Node* in1;

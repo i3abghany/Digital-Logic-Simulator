@@ -23,14 +23,6 @@ Simulator::Simulator() {
     inputNodes = std::vector<Node*>();
 }
 
-int Simulator::getGS() {
-    return GA.size();
-}
-
-int Simulator::getNS() {
-    return NA.size();
-}
-
 Node* Simulator::findNode(const std::string &s) {
     for (int i = 0; i < NA.size(); ++i) {
         if(NA[i]->getName() == s)
@@ -41,33 +33,33 @@ Node* Simulator::findNode(const std::string &s) {
 
 Node* Simulator::addNode(const std::string &s) {
     NA.emplace_back(new Node(s));
-    return NA[NA.size()-1];
+    return NA[NA.size() - 1];
 }
 
 // Search for a node with name s, if not existed, make a new node called s.
 Node* Simulator::findOrAdd(const std::string &s) {
-    Node* n = findNode(s);
-    if(n != nullptr)
+    Node *n = findNode(s);
+    if (n != nullptr)
         return n;
     return addNode(s);
 }
 
 // Creates a gate of the according type.
 Gate* Simulator::addGate(const std::string &type) {
-    Gate* x = nullptr;
-    if(type == "AND")
+    Gate *x = nullptr;
+    if (type == "AND")
         x = new AndGate();
-    else if(type == "OR")
+    else if (type == "OR")
         x = new OrGate();
-    else if(type == "XOR")
+    else if (type == "XOR")
         x = new XORGate();
-    else if(type == "NAND")
+    else if (type == "NAND")
         x = new NANDGate();
-    else if(type == "XNOR")
+    else if (type == "XNOR")
         x = new XNORGate();
-    else if(type == "NOR")
+    else if (type == "NOR")
         x = new NORGate();
-    else if(type == "NOT")
+    else if (type == "NOT")
         x = new NOTGate();
     else {
         throw std::invalid_argument("Unknown command " + type + ".\n");
@@ -99,55 +91,51 @@ void Simulator::printAllNodes() {
 void Simulator::load(const std::string &fileName) {
     std::ifstream f1;
     f1.open(fileName);
-    if(!f1) {
+    if (!f1) {
         std::cerr << "Error occurred while trying to open the file.";
         exit(EXIT_FAILURE);
     }
 
-    while(!f1.eof()) {
+    while (!f1.eof()) {
         std::string s;
         f1 >> s;
-        if(s == "SET") {
-            std::string n; short v;
+        if (s == "SET") {
+            std::string n;
+            short v;
             f1 >> n >> v;
             findOrAdd(n)->setValue(v);
-        } else if(s == "TSETIN") {
+        } else if (s == "TSETIN") {
             std::string n;
             f1 >> n;
             findOrAdd(n)->setValue(0);
             addInputNode(n);
-        } else if(s == "TSETOUT") {
+        } else if (s == "TSETOUT") {
             std::string n;
             f1 >> n;
             findOrAdd(n)->setValue(0);
             addOutputNode(n);
-        }
-        else if(s == "OUT") {
+        } else if (s == "OUT") {
             std::string out_option;
             f1 >> out_option;
-            if(out_option == "ALL")
+            if (out_option == "ALL")
                 printAllNodes();
             else findOrAdd(out_option)->printNode();
-        }
-        else if(s == "SIM") {
+        } else if (s == "SIM") {
             simulate();
-        }
-        else if(s == "TRUTH") {
+        } else if (s == "TRUTH") {
             TruthTable();
-        } else if(s == "") {
+        } else if (s.empty()) {
             continue;
-        }
-        else {
-            Gate* g = addGate(s);
+        } else {
+            Gate *g = addGate(s);
             std::string n1, n2, n3;
 
             // Making the two inputs of the inverter the same, n1 = n2 (using only one input) and n3 as the regular output.
-            if(s == "NOT") {
+            if (s == "NOT") {
                 f1 >> n1 >> n2;
                 n3 = n2;
                 n2 = n1;
-            }
-            else {
+            } else {
                 f1 >> n1 >> n2 >> n3;
             }
             // adding to the gate g new nodes called n1, n2 as inputs and n3 as output node.
@@ -160,8 +148,8 @@ void Simulator::load(const std::string &fileName) {
 }
 
 Node* Simulator::addInputNode(const std::string &s) {
-    Node* n = findOrAdd(s);
-    if(n == nullptr) {
+    Node *n = findOrAdd(s);
+    if (n == nullptr) {
         throw std::invalid_argument("Cannot find the node " + s);
     }
     inputNodes.emplace_back(n);
@@ -169,8 +157,8 @@ Node* Simulator::addInputNode(const std::string &s) {
 }
 
 Node* Simulator::addOutputNode(const std::string &s) {
-    Node* n = findOrAdd(s);
-    if(n == nullptr) {
+    Node *n = findOrAdd(s);
+    if (n == nullptr) {
         throw std::invalid_argument("Cannot find the node " + s);
     }
     outputNodes.emplace_back(findOrAdd(s));
@@ -181,11 +169,11 @@ Node* Simulator::addOutputNode(const std::string &s) {
 void Simulator::printAllNodesForTruthTable() {
     std::cout << std::endl;
 
-    for(int i = 0; i < inputNodes.size(); i++) {
+    for (int i = 0; i < inputNodes.size(); i++) {
         std::cout << std::setw(5) << findOrAdd(inputNodes[i]->getName())->getValue();
     }
 
-    for(int i = 0; i < outputNodes.size(); i++) {
+    for (int i = 0; i < outputNodes.size(); i++) {
         std::cout << std::setw(5) << findOrAdd(outputNodes[i]->getName())->getValue();
     }
 }
@@ -193,25 +181,25 @@ void Simulator::printAllNodesForTruthTable() {
 void Simulator::TruthTable() {
     // The header of the truth table, inputs and outputs.
     unsigned long long NumberOfInputNodes = inputNodes.size();
-    int NumberOfPossibilities = (int)(pow(2, NumberOfInputNodes));
+    int NumberOfPossibilities = (int) (pow(2, NumberOfInputNodes));
 
-    for(int i = 0; i < inputNodes.size(); i++) {
+    for (int i = 0; i < inputNodes.size(); i++) {
         std::cout << std::setw(5) << inputNodes[i]->getName();
     }
 
-    for(int i = 0; i < outputNodes.size(); i++) {
+    for (int i = 0; i < outputNodes.size(); i++) {
         std::cout << std::setw(5) << outputNodes[i]->getName();
     }
 
     // Using a std::bitset to generate all the combinations of the truth table.
     constexpr size_t sz = 8;
-    for(int i = 0; i < NumberOfPossibilities; i++) {
+    for (int i = 0; i < NumberOfPossibilities; i++) {
         std::string currentPossibility = std::bitset<sz>(i).to_string();
 
         // Deleting the leading zeros.
         currentPossibility = currentPossibility.substr(currentPossibility.size() - NumberOfInputNodes);
 
-        for(int j = 0; j < NumberOfInputNodes; j++) {
+        for (int j = 0; j < NumberOfInputNodes; j++) {
             findOrAdd(inputNodes[j]->getName())->setValue(currentPossibility[j] - '0');
         }
 

@@ -1,7 +1,6 @@
 #include "AndGate.h"
 
 AndGate::AndGate() = default;
-
 AndGate::~AndGate() = default;
 
 void AndGate::calculateOutput() {

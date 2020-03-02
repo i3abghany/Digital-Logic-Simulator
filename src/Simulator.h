@@ -4,7 +4,6 @@
 #include "Gate.h"
 #include<vector>
 
-using namespace std;
 
 class Simulator {
 protected:
@@ -16,9 +15,6 @@ protected:
 public:
     Simulator();
     ~Simulator();
-
-    int getGS();
-    int getNS();
 
     Node* findNode(const std::string&);
     Node* addNode(const std::string&);
@@ -33,7 +29,6 @@ public:
     void TruthTable();
     void printAllNodesForTruthTable();
     void printAllNodes();
-    Node* findInInputNodes(const std::string &);
 };
 
 

@@ -6,13 +6,14 @@ Node::Node() {
     name = "";
     value = 0;
 }
+
 Node::Node(string n) {
-    name = n;
+    name = std::move(n);
     value = 0;
 }
 
 Node::Node(string n, short v) {
-    name = n, value = v;
+    name = std::move(n), value = v;
 }
 
 void Node::printNode() {
@@ -20,7 +21,7 @@ void Node::printNode() {
 }
 
 void Node::setName(string n) {
-    name = n;
+    name = std::move(n);
 }
 
 string Node::getName() {
