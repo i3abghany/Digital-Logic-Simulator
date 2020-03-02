@@ -134,6 +134,8 @@ void Simulator::load(const std::string &fileName) {
         }
         else if(s == "TRUTH") {
             TruthTable();
+        } else if(s == "") {
+            continue;
         }
         else {
             Gate* g = addGate(s);

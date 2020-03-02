@@ -2,11 +2,9 @@
 
 #include "Simulator.h"
 
-using namespace std;
-
 int main() {
     Simulator s;
-    string fN = R"(C:/Users/pi/Desktop/test.cir)";
+    std::string fN = R"(C:/Users/pi/Desktop/test.txt)";
     s.load(fN);
     return 0;
 }
