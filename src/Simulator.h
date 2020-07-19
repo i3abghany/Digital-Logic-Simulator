@@ -2,8 +2,8 @@
 #define LOGIC_SIMULATOR_SIMULATOR_H
 
 #include "Gate.h"
-#include<vector>
-
+#include "GateFactory.h"
+#include <vector>
 
 class Simulator {
 protected:

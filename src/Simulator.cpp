@@ -9,13 +9,6 @@
 #include <algorithm>
 #include <iomanip>
 
-#include "AndGate.h"
-#include "OrGate.h"
-#include "XORGate.h"
-#include "NANDGate.h"
-#include "XNORGate.h"
-#include "NORGate.h"
-#include "NOTGate.h"
 
 Simulator::Simulator() {
     NA = std::vector<Node*>();
@@ -46,24 +39,7 @@ Node* Simulator::findOrAdd(const std::string &s) {
 
 // Creates a gate of the according type.
 Gate* Simulator::addGate(const std::string &type) {
-    Gate *x = nullptr;
-    if (type == "AND")
-        x = new AndGate();
-    else if (type == "OR")
-        x = new OrGate();
-    else if (type == "XOR")
-        x = new XORGate();
-    else if (type == "NAND")
-        x = new NANDGate();
-    else if (type == "XNOR")
-        x = new XNORGate();
-    else if (type == "NOR")
-        x = new NORGate();
-    else if (type == "NOT")
-        x = new NOTGate();
-    else {
-        throw std::invalid_argument("Unknown command " + type + ".\n");
-    }
+    auto x = GateFactory::CreateGate(type);
     GA.emplace_back(x);
     return GA[GA.size() - 1];
 }
