@@ -2,9 +2,15 @@
 
 #include "Simulator.h"
 
-int main() {
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+	  std::cout << "Please provide an input file." << std::endl;
+	  exit(EXIT_FAILURE);
+    }
+
     Simulator s;
-    std::string fN = R"(C:/Users/pi/Desktop/test.txt)";
+    auto fN = std::string(argv[1]);
+   // auto fN = "test.cir";
     s.load(fN);
-    return 0;
+    return EXIT_SUCCESS;
 }

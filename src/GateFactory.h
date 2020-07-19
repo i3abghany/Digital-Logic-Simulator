@@ -1,5 +1,5 @@
-#ifndef LOGIC_SIMULATOR_SIMULATOR_H
-#define LOGIC_SIMULATOR_SIMULATOR_H
+#ifndef LOGIC_SIMULATOR_GATE_FACTORY_H
+#define LOGIC_SIMULATOR_GATE_FACTORY_H
 
 #include <iostream>
 #include "AndGate.h"
