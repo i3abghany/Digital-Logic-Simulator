@@ -43,7 +43,7 @@ F 1
 
 * if the ```TSETOUT``` command is followed by a name of a node, It's going to be assigned as an output node for the circuit and it will be considered in the truth table as an output node.
 
-* the ```TRUTH``` command is used to print out the truth table of the circuit using the input nodes assigned by the ``TSET``` command.
+* the ```TRUTH``` command is used to print out the truth table of the circuit using the input nodes assigned by the ```TSET``` command.
 
 * An example input for the simulator to evaluate the truth table for the specified input nodes would look like:
 ```
@@ -57,3 +57,7 @@ TRUTH
 ```
 
 * Firstly, initialize a ```Simulator``` object using the default constructor. And call the ```load()``` method passing the ```.cir``` file name as a string parameter.
+
+
+## Build
+Simply run ```cmake . && make```.
