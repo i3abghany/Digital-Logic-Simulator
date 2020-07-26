@@ -1,4 +1,4 @@
-#include "AndGate.h"
+#include "../include/AndGate.h"
 
 AndGate::AndGate() = default;
 AndGate::~AndGate() = default;

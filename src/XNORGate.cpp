@@ -1,4 +1,4 @@
-#include "XNORGate.h"
+#include "../include/XNORGate.h"
 
 XNORGate::XNORGate() = default;
 XNORGate::~XNORGate() = default;

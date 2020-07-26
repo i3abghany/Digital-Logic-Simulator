@@ -1,4 +1,4 @@
-#include "NANDGate.h"
+#include "../include/NANDGate.h"
 
 NANDGate::NANDGate() = default;
 NANDGate::~NANDGate() = default;

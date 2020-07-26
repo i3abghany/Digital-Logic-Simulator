@@ -1,4 +1,4 @@
-#include "XORGate.h"
+#include "../include/XORGate.h"
 
 XORGate::XORGate() = default;
 XORGate::~XORGate() = default;

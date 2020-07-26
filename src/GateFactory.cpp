@@ -1,4 +1,4 @@
-#include "GateFactory.h"
+#include "../include/GateFactory.h"
 
 Gate *GateFactory::CreateGate(const std::string &type) {
     Gate *x = nullptr;

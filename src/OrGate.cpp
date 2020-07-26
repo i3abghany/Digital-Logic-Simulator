@@ -1,4 +1,4 @@
-#include "OrGate.h"
+#include "../include/OrGate.h"
 
 OrGate::OrGate() = default;
 OrGate::~OrGate() = default;

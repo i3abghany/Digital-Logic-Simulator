@@ -1,4 +1,4 @@
-#include "Gate.h"
+#include "../include/Gate.h"
 
 Gate::Gate() {
     in1 = nullptr;
@@ -29,10 +29,7 @@ Node* Gate::getOut() {
     return out;
 }
 
-Gate::~Gate() {
-
-}
-
+Gate::~Gate() = default;
 
 
 

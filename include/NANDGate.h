@@ -5,9 +5,9 @@
 
 class NANDGate : public Gate{
 public:
-    void calculateOutput();
+    void calculateOutput() override;
     NANDGate();
-    ~NANDGate();
+    ~NANDGate() override;
 };
 
 

@@ -1,4 +1,4 @@
-#include "NORGate.h"
+#include "../include/NORGate.h"
 
 NORGate::NORGate() = default;
 NORGate::~NORGate() = default;

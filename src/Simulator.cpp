@@ -1,6 +1,6 @@
 // Main Simulator class .cpp file
 
-#include "Simulator.h"
+#include "../include/Simulator.h"
 
 #include <fstream>
 #include <iostream>
